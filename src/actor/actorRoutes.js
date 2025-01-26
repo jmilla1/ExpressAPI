@@ -5,6 +5,7 @@ import {
   handleGetActorByIdRequest,
   handleGetActoresByPeliculaIdRequest,
   handleUpdateActorRequest,
+  handleDeleteActorRequest,
 
 } from "./actorController.js";
 
@@ -24,5 +25,9 @@ router.get("/pelicula/:id", handleGetActoresByPeliculaIdRequest);
 
 // Actualizar actores por ID
 router.put("/:id", handleUpdateActorRequest);
+
+// Eliminar un actor por ID
+router.delete("/:id", handleDeleteActorRequest);
+
 
 export default router;

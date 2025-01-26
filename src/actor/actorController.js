@@ -80,6 +80,7 @@ export async function handleGetActoresByPeliculaIdRequest(req, res) {
     }
   }
   
+  // Actualizar actores por ID
   export async function handleUpdateActorRequest(req, res) {
     try {
       const { id } = req.params;
@@ -105,4 +106,25 @@ export async function handleGetActoresByPeliculaIdRequest(req, res) {
     }
   }
    
+  // Eliminar un actor por ID
+export async function handleDeleteActorRequest(req, res) {
+    try {
+      const { id } = req.params;
+  
+      if (!ObjectId.isValid(id)) {
+        return res.status(400).json({ mensaje: "El ID del actor no es válido" });
+      }
+  
+      const db = client.db(dbName);
+      const result = await db.collection(actorCollection).deleteOne({ _id: new ObjectId(id) });
+  
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ mensaje: "Actor no encontrado" });
+      }
+  
+      res.status(200).json({ mensaje: "Actor eliminado con éxito" });
+    } catch (error) {
+      res.status(500).json({ mensaje: "Error al eliminar el actor", error: error.message });
+    }
+  }
   
